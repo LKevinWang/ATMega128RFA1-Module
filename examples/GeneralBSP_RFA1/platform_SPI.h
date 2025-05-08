@@ -7,6 +7,18 @@
 #define CS_LOW //
 #define CS_HIGH //
 
+void SPI_RF_Init();//You must redefine this, as we need a SPI Master port to control RFA1.
+//On hardware we have a match between RFA1 pins and SPI pin:
+/*
+    RFA1 PIN    User MCU Pin
+    PB1            MISO
+    PB2            MOSI
+    PB0            CS
+    PB1            SCK
+    PD0            OUTPUT_SLPTR
+    PD1            INPUT_INTERRUPT
+*/
+
 //------------------USER Editable END------------------------
 
 void SPI_RF_TXBytes(uint8_t *buf, uint8_t len);

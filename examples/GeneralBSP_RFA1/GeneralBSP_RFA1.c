@@ -313,6 +313,8 @@ void template_RFInterruptISR(){
 void* PulseInterruptISR() = &template_RFInterruptISR;
 //---------------User Editable END------------------
 
+
+//Followed 2 funcs Could be directly executed after RFA1_Radio_Init and TRXCMD(0x08)
 void example_TX(){
     uint8_t trx_status = 0;
     uint8_t interruptName = 0x00;
