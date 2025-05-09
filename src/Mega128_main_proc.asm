@@ -59,7 +59,7 @@ rcall CLK_init
 ;rcall SPI_IO_Init
 rcall RF_Init
 
-    SPI_Enable:
+SPI_Enable:
     ldi r18, 0x4C
     ldi r19, 0x00;
     movw r30, r18
@@ -67,7 +67,7 @@ rcall RF_Init
     ori r18, 0x40;
     st Z, r18;SPCR.SPE = 1
 
-    Intps_Init:
+Intps_Init:
 
     ldi r24, 0x3c
     ldi r25, 0x00
@@ -90,7 +90,7 @@ rcall RF_Init
     st Z, r18   ;EICRA.[ICS00:ICS01] = 1
     bset 7;Enable Global Interrupt
 
-    Wait_SPIF:
+Wait_SPIF:
     in r18, SPSR
     sbrs r18, 7
     rjmp Wait_SPIF
@@ -125,7 +125,7 @@ rcall RF_Init
 
     rjmp Wait_SPIF
 
-    Subroutine_Rd_Reg:
+Subroutine_Rd_Reg:
     lds r24, 0x0203
     andi r24, 0x3f
     ldi r25, 0x00
@@ -138,7 +138,7 @@ rcall RF_Init
     rcall SPI_TX_Reg
     rjmp Wait_SPIF
 
-    Subroutine_Wr_Reg:
+Subroutine_Wr_Reg:
     lds r24, 0x0203
     andi r24, 0x3f
     ldi r25, 0x00
@@ -151,6 +151,13 @@ rcall RF_Init
     rcall SPI_RX_Reg
     rjmp Wait_SPIF
 
+Subroutine_TX_Frame:
+    rcall SPI_RX_Frame
+    rjmp Wait_SPIF
+
+Subroutine_RX_Frame:
+    rcall SPI_TX_Frame
+    rjmp Wait_SPIF
     
 
 
